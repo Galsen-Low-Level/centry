@@ -20,4 +20,5 @@ add_project_arguments(
 
 executable('centry',
            'centry.c',
+           'main.c',
            install : true)
