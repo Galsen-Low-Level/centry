@@ -131,7 +131,7 @@ static int spwn(char *const *  shcmd , char *  buffer_result )
 }
 
 
-void centry_check_running_container(const char * container_name) 
+char  *  centry_check_running_container(const char * container_name) 
 {
   char *_oah  = __nptr ; 
   ssize_t  bytes_erase =0,
@@ -166,7 +166,7 @@ void centry_check_running_container(const char * container_name)
        *buff = strdup(ob) , 
        cid_img[0xff]={0}; 
     int token_limit =3;   
-    while ( __nptr !=  (token = strtok(buff,(const char[]){0x20}))) 
+    while ( __nptr !=  (token = strtok(buff,__inline_char(0x20))))  
     {
        buff = __nptr ; 
       char s[100]={0} ;
@@ -194,7 +194,13 @@ void centry_check_running_container(const char * container_name)
    //printf("%s " ,  *(container_list+1))  ; 
    bzero(outbuffer , 10000) ; 
    centry_curses_select(container_list  , i-1) ; 
-   printf("selected container %s \n" ,  *container_list) ; 
+   char *id_token = strtok(*container_list , __inline_char(0x20))  ; 
+   tputs(clear_screen ,  1, putchar) ; 
+   if (!id_token) 
+   {
+     return  __nptr ;   
+   }
+   return  strdup(id_token) ;  
 }
 
 
@@ -210,7 +216,7 @@ void centry_curses_select(char (*buffer_result) [0xff] ,   int size  )
   if (tcfg_status)  
     goto __termio_setup_failor ; 
 
-  (termsetup)->c_lflag &=~(ICANON | ECHO )  ;
+  (termsetup)->c_lflag &=~(ICANON)  ;
   if(tcsetattr(STDOUT_FILENO ,TCSANOW ,  termsetup)) 
     goto __termio_setup_failor; 
    
@@ -221,10 +227,10 @@ __termio_setup_failor:
 
 __setup_term : 
     
-    unsigned int erret = 0 ; 
+    int erret = 0 ; 
     if (ERR == setupterm(__nptr ,  STDOUT_FILENO , &erret)) 
     {
-      switch(erret &0xf) 
+      switch(erret) 
       { 
         case 1 :
           warn("Cannot use  curses") ; break ; 
@@ -243,8 +249,6 @@ __setup_term :
       0
     }; 
   
-
-  
     //! Term dimension 
     unsigned int termscope=0; 
     termscope|=(lines<<8)|columns ;  
@@ -258,7 +262,7 @@ __setup_term :
     printf("Centry") ; 
     tputs(tparm(set_a_background,1), 1, putchar) ; 
     tputs(tgoto(cursor_address , 0, termscope & 0xff) , 1 , putchar) ;  
-    printf("Hint: <w s a d> to move arround, Enter  or Space  to select") ; 
+    printf("Hint: <w s a d> to move arround, Enter  or Space  to select ,q/Q to Quit") ; 
     char *version =  "Version: 0.0.1-a";
     tputs(tgoto(cursor_address , abs((termscope &0xff) - strlen(version)), termscope>>8 ), 1, putchar) ; 
     printf("%s",version) ; 
@@ -266,7 +270,7 @@ __setup_term :
     int select_cursor  = 0; 
     int index_selected = 1;
     char  result[1000] = {0}; 
-    while(index_selected) 
+    while(index_selected & 0xf) 
     {
       int i = ~0 ;   
       if(0 == strlen(*buffer_result)) 
@@ -274,8 +278,7 @@ __setup_term :
         tputs(tgoto(cursor_address , 32 ,10+i ), 1, putchar) ;  
         tputs(tparm(set_a_foreground, COLOR_WHITE+3+i) , 1 , putchar) ; 
         printf("!No Running container found") ;
-        tputs(tgoto(cursor_address ,0,termscope >>8 ), 1 , putchar) ; 
-        printf("Crtl+C to Quit") ; 
+        tputs(tgoto(cursor_address ,0,termscope >>8 ), 1 , putchar) ;   
         continue ; 
       } 
       while( ++i< size  ) 
@@ -320,6 +323,15 @@ __setup_term :
           case  0x0a: /*Enter  : to Validate */
                index_selected^=1; 
                break ; 
+          case 0x71:
+          case 0x51: 
+               //!TODO : Make more clear 
+               tputs(cursor_normal ,1,putchar); 
+               tputs(clear_screen , 1 , putchar) ;  
+               tputs(exit_attribute_mode, 1, putchar) ; 
+               tcsetattr(STDIN_FILENO , 0   , (termsetup+1))  ; 
+               exit(1) ;
+               break ; 
          }
        
        }
@@ -327,6 +339,7 @@ __setup_term :
     bzero(*(buffer_result) , 0xff) ; 
     memcpy(*(buffer_result)  , result , strlen(result)) ; 
 
+    tputs(cursor_normal ,1,putchar); 
     tputs(exit_attribute_mode, 1, putchar) ; 
     tcsetattr(STDIN_FILENO , 0   , (termsetup+1))  ; 
 
