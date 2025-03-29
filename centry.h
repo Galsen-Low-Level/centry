@@ -140,4 +140,19 @@ void   load_ns_for(cpid_t)  ;
  **/
 static int spwn(char *const * __sh_cmd ,  char * __buffer_result) ; 
 
+/* @fn centry_check_running_container(const char *) 
+ * @brief check running container  depending wich engine is use  
+ *        for now docker is supported  [LXC/LXD] w'll be supported soon 
+ * @param  const char *  container engine name 
+ * */
+void centry_check_running_container(const char * __container_engine) ; 
+
+/* @fn centry_curses_select(char * __buffer_result) 
+ * @brief make curse  interaction selection  using term and curse  
+ * @param  char *  the buffer to be writen  on term 
+ *         but the select frame will be writen on first index of  buffer_result  
+ *         you can access it by deferencing  the 1st index address 
+ */
+
+void centry_curses_select(char (*__buffer_result) [0xff] ,  int size ) ; 
 #endif  //!__centry_h 

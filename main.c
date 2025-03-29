@@ -22,7 +22,8 @@ int main(int ac , char **av , char **env)
    int pstatus = EXIT_SUCCESS ;  
    setvbuf(stdout ,  __nptr ,  _IONBF , 0 ) ; 
 
-   //centery_check() 
+   centry_check_running_container("docker") ; 
+   exit(1) ; 
    char *id= *(av+(ac-1)) ; 
    cpid_t chid =  container_process_id(id) ; 
    
