@@ -18,17 +18,12 @@ c3784c6459b9   <image>                   "sleep 9999999"   24 hours ago   Up 24 
 
 #> center c37   
 ```
-For more option  use the -h or --help command 
+However ,If no arguments are supplied , an interface (TUI) will be proposed, allowing you to choose your target use <WASD> to move up and down 
 
-### COMPILE  
+![centry-tui](screenshots/centry_tui.png) 
 
-Quick and easy to compile 
-```bash 
-$> gcc  centry.c  -o <your_final_exec> 
-```
-
-### OPTION 
-If you have meson 
+### COMPILE 
+**We strongly recommend using the [Meson Build System](https://mesonbuild.com/) to build the project.** 
 
 ```bash 
 $>  meson setup build 
@@ -40,3 +35,9 @@ To uninstall
 ```bash 
 #> ninja uninstall -C build 
 ```  
+
+#### NOTE : 
+If you notice any problems, please open a case and we will be happy to correct them. If you have the opportunity to do so, we encourage you to submit a PR. 
+Thank you in advance for your cooperation. 
+
+Appreciate Computer at all levels 
