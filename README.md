@@ -30,7 +30,10 @@ However ,If no arguments are supplied , an interface (TUI) will be proposed, all
 ```bash
 # centry
 ```
-<img src="screenshots/centry_tui.png" width="500">
+<img src="screenshots/centry_tui.png" width="500"> 
+
+_For Any issue happening after  centry tui type `reset` to restore your terminal_ 
+
 
 ### COMPILE 
 **We strongly recommend using the [Meson Build System](https://mesonbuild.com/) to build the project.** 
