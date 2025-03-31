@@ -145,7 +145,7 @@ static int spwn(char *const * __sh_cmd ,  char * __buffer_result) ;
  *        for now docker is supported  [LXC/LXD] w'll be supported soon 
  * @param  const char *  container engine name 
  * */
-char *centry_check_running_container(const char * __container_engine) ; 
+char *centry_check_running_container_for(const char * __container_engine) ; 
 
 /* @fn centry_curses_select(char * __buffer_result) 
  * @brief make curse  interaction selection  using term and curse  

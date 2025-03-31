@@ -131,7 +131,7 @@ static int spwn(char *const *  shcmd , char *  buffer_result )
 }
 
 
-char  *  centry_check_running_container(const char * container_name) 
+char  *  centry_check_running_container_for(const char * container_name) 
 {
   char *_oah  = __nptr ; 
   ssize_t  bytes_erase =0,
@@ -216,7 +216,7 @@ void centry_curses_select(char (*buffer_result) [0xff] ,   int size  )
   if (tcfg_status)  
     goto __termio_setup_failor ; 
 
-  (termsetup)->c_lflag &=~(ICANON)  ;
+  (termsetup)->c_lflag &=~(ICANON|ECHO)  ;
   if(tcsetattr(STDOUT_FILENO ,TCSANOW ,  termsetup)) 
     goto __termio_setup_failor; 
    
