@@ -3,7 +3,7 @@
 ![StatusBuild](https://img.shields.io/badge/Center-On_Progress...-blue) 
 
 ```diff
-+ For the moment, this is an experimental phase, a proof of concept, using Docker as a combaye.
++ For the moment, this is an experimental phase, a proof of concept, using Docker as Test.
 + But in the future, we're going to extend it to other types of containerization, such as LXC Chroot and others. 
 ```
 
