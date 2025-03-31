@@ -1,8 +1,15 @@
-# CENTRY 
+# CENTRY  
+
+![StatusBuild](https://img.shields.io/badge/Center-On_Progress...-blue) 
+
+```diff
++ For the moment, this is an experimental phase, a proof of concept, using Docker as a combaye.
++ But in the future, we're going to extend it to other types of containerization, such as LXC Chroot and others. 
+```
 
 ### What is Centry 
 
-Centry is a simple, lightweight program that lets you access the inside of a running Docker container just like in interactive tty mode. 
+Centry is a simple, lightweight program that **lets you access the inside of a running Docker container** just like in _interactive tty mode_. 
 The only prerequisite is to have Docker already available on your system. 
 
 ### Quick demo 
@@ -20,7 +27,10 @@ c3784c6459b9   <image>                   "sleep 9999999"   24 hours ago   Up 24 
 ```
 However ,If no arguments are supplied , an interface (TUI) will be proposed, allowing you to choose your target use <WASD> to move up and down 
 
-![centry-tui](screenshots/centry_tui.png) 
+```bash
+# centry
+```
+<img src="screenshots/centry_tui.png" width="500">
 
 ### COMPILE 
 **We strongly recommend using the [Meson Build System](https://mesonbuild.com/) to build the project.** 
@@ -37,7 +47,9 @@ To uninstall
 ```  
 
 #### NOTE : 
-If you notice any problems, please open a case and we will be happy to correct them. If you have the opportunity to do so, we encourage you to submit a PR. 
+If you notice any problems, please open an issue and we will be happy to correct them.
+If you have the opportunity to do so, we encourage you to submit a PR. 
+
 Thank you in advance for your cooperation. 
 
-Appreciate Computer at all levels 
+Appreciate Computer at all levels 🇸🇳
